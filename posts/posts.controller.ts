@@ -1,6 +1,6 @@
 import {Context} from '../types/context.ts'
 
-class BlogueControler {
+class PostControler {
     /**
      * returns all posts to client
      */
@@ -13,4 +13,4 @@ class BlogueControler {
     }
 }
 
-export default new BlogueControler()
+export default new PostControler()
