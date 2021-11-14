@@ -1,0 +1,12 @@
+version: '3'
+services:
+  db:
+    image: mongo
+    # environment:
+    #   - MONGO_INITDB_DATABASE=Blogue
+    #   - MONGO_INITDB_ROOT_USERNAME=sammy
+    #   - MONGO_INITDB_ROOT_PASSWORD=3551
+    volumes:
+      - ./data:/data/db
+    ports:
+      - "27017:27017"
