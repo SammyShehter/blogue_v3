@@ -1,28 +1,28 @@
-import {db} from '../services/mongoose.service.ts'
-import {PostSchema} from '../types/post.type.ts'
+import {PostSchema} from './posts.model.ts'
 import {CreatePostDto} from './posts.dto.ts'
 
 
 class PostDao {
-    
-    private posts
-
+    private postStorage
     constructor() {
         console.log('Created instance of PostDao');
-        this.posts = db.collection<PostSchema>('posts')
+        this.postStorage = PostSchema
     }
 
     async getAllPosts() {
-        const posts = await this.posts.find().toArray()
-        posts.forEach(post => {
-            delete post._id
-        })
+        const posts = await this.postStorage.all()
+        
+        // posts.forEach(post => {
+        //     delete post._id
+        // })
         return posts
     }
 
     async addPost(postFields: CreatePostDto) {
         try {
-            await this.posts.insertOne(postFields)
+            const newPost = new this.postStorage()
+            newPost.title = postFields.title
+            await newPost.save()
             return 'done'
         } catch (error) {
             console.log(error);

@@ -1,6 +1,6 @@
 import {Context} from '../types/context.type.ts'
 
-class CategorieControler {
+class CategorieController {
     /**
      * returns all posts to client
      */
@@ -13,4 +13,4 @@ class CategorieControler {
     }
 }
 
-export default new CategorieControler()
+export default new CategorieController()

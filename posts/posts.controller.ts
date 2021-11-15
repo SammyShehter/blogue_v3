@@ -1,6 +1,6 @@
 import {Context} from '../types/context.type.ts'
 import PostDao from './posts.dao.ts'
-class PostControler {
+class PostController {
     /**
      * returns all posts to client
      */
@@ -12,9 +12,22 @@ class PostControler {
         }
     }
 
+    getPost(ctx: Context) {
+        try {
+            ctx.response.body = ctx.postId
+        } catch (error) {
+            console.log(error);
+            
+        }
+    }
+
     async createPost(ctx: Context) {
         try {
-            await PostDao.addPost({title: 'xcv'})
+            
+            const body = ctx.request.body()
+            const {title} = await body.value
+            await PostDao.addPost({title})
+            
             ctx.response.body = 'done'
         } catch (error) {
             console.log(error);
@@ -22,4 +35,4 @@ class PostControler {
     }
 }
 
-export default new PostControler()
+export default new PostController()

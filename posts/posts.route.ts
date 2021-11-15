@@ -1,6 +1,7 @@
 import { Router } from '../deps.ts'
 import {CommonRoutes} from '../common/common.routes.ts'
-import PostControler from './posts.controller.ts'
+import PostController from './posts.controller.ts'
+import PostMiddleware from './posts.middleware.ts'
 
 export class PostRoutes extends CommonRoutes {
     constructor(router: Router) {
@@ -8,8 +9,10 @@ export class PostRoutes extends CommonRoutes {
     }
 
     configureRoutes() {
-        this.router.get('/post', PostControler.retrieveAllPosts)
-        this.router.post('/post', PostControler.createPost)
+
+        this.router.get('/posts', PostController.retrieveAllPosts)
+        this.router.get('/post/:postId', PostMiddleware.inspectParam, PostController.getPost)
+        this.router.post('/post', PostController.createPost)
 
         return this.router
     }
