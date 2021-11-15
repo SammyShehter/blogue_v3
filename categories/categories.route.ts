@@ -1,6 +1,6 @@
 import { Router } from '../deps.ts'
-import CommonRoutes from '../common/common.routes.ts'
-import CategorieControler from './posts.controller.ts'
+import {CommonRoutes} from '../common/common.routes.ts'
+import CategorieControler from './categories.controller.ts'
 
 export class CategorieRoutes extends CommonRoutes {
     constructor(router: Router) {
@@ -8,7 +8,7 @@ export class CategorieRoutes extends CommonRoutes {
     }
 
     configureRoutes() {
-        this.router.get('/', CategorieControler.retrieveAllCategories)
+        this.router.get('/categories', CategorieControler.retrieveAllCategories)
 
         return this.router
     }

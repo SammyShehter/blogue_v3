@@ -1,4 +1,4 @@
-import {Context} from '../types/context.ts'
+import {Context} from '../types/context.type.ts'
 
 class CategorieControler {
     /**

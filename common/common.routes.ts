@@ -1,6 +1,6 @@
 import { Router } from '../deps.ts'
 
-export default abstract class CommonRoutes {
+export abstract class CommonRoutes {
     router: Router
     name: string
 

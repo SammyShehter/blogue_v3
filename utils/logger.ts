@@ -1,24 +1,24 @@
-import * as log from 'https://deno.land/std@0.113.0/log/mod.ts'
+// import * as log from 'https://deno.land/std@0.113.0/log/mod.ts'
 
 
-await log.setup({
-  handlers: {
-    console: new log.handlers.ConsoleHandler("DEBUG", {
-        formatter: "{datetime} {levelName} {msg}"
-    }),
-  },
+// await log.setup({
+//   handlers: {
+//     console: new log.handlers.ConsoleHandler("DEBUG", {
+//         formatter: "{datetime} {levelName} {msg}"
+//     }),
+//   },
 
-  loggers: {
-    default: {
-      level: "DEBUG",
-      handlers: ["console"],
-    }
-  },
-});
+//   loggers: {
+//     default: {
+//       level: "DEBUG",
+//       handlers: ["console"],
+//     }
+//   },
+// });
 
-const print = log.getLogger()
+// const print = log.getLogger()
 
-export { print }
+// export { print }
 
 
 

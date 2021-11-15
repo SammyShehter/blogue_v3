@@ -1,6 +1,6 @@
-import {Context} from '../types/context.ts'
+import {Context} from '../types/context.type.ts'
 
-export default abstract class CommonMiddleware {
+export abstract class CommonMiddleware {
     static loggerMiddleware = async (ctx: Context, next: any) => {
         await next()
         const reqTime = ctx.response.headers.get('X-Response-Time')
