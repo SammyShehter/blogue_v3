@@ -3,14 +3,14 @@ import {CreatePostDto} from './posts.dto.ts'
 
 
 class PostDao {
-    private postStorage
+    
     constructor() {
         console.log('Created instance of PostDao');
-        this.postStorage = PostSchema
+        PostSchema
     }
 
     async getAllPosts() {
-        const posts = await this.postStorage.all()
+        const posts = await PostSchema.all()
         
         // posts.forEach(post => {
         //     delete post._id
@@ -20,9 +20,7 @@ class PostDao {
 
     async addPost(postFields: CreatePostDto) {
         try {
-            const newPost = new this.postStorage()
-            newPost.title = postFields.title
-            await newPost.save()
+            await PostSchema.create({...postFields})
             return 'done'
         } catch (error) {
             console.log(error);
