@@ -1,5 +1,5 @@
 import { Model, DataTypes } from '../deps.ts'
-import { db } from '../services/mongo.service.ts'
+import { db } from '../services/postgres.service.ts'
 
 class PostSchema extends Model {
     static table = 'posts'
@@ -7,6 +7,7 @@ class PostSchema extends Model {
     static fields = {
         title: {
             type: DataTypes.STRING,
+            length: 5,
             unique: true,
         },
         text: {

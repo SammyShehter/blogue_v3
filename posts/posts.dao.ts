@@ -6,7 +6,6 @@ class PostDao {
     
     constructor() {
         console.log('Created instance of PostDao');
-        PostSchema
     }
 
     async getAllPosts() {
