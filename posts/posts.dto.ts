@@ -1,19 +1,16 @@
 
 export interface CreatePostDto {
     title: string
-    // body: string
-    // image: string
-    // date: Date
-    // lastEdited?: Date
-    // viewed?: number
+    text: string
+    image?: string
+    viewed?: number
 }
 
 
    
 export interface PatchPostDto {
     title?: string
-    body?: string
+    text?: string
     image?: string
-    lastEdited?: Date
     viewed?: number
 }

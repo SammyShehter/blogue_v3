@@ -9,11 +9,11 @@ export class PostRoutes extends CommonRoutes {
     }
 
     configureRoutes() {
-        //special route
+        // Special route
         this.router.get('/', PostController.pong)
+        //
 
-        //not so special route
-        this.router.get('/posts', PostController.retrieveAllPosts)
+        this.router.get('/posts', PostController.getAllPosts)
 
         this.router.post(
             '/post',

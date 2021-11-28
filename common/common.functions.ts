@@ -1,6 +1,7 @@
 import { Context } from '../types/context.type.ts'
+import type { postResponse } from '../types/post.type.ts'
 
-function handleError(status: number, message: string, ctx: Context) {
+function handleError(ctx: Context, message: string, status: number = 500) {
     ctx.response.status = status
     ctx.response.body = {
         status,
@@ -8,4 +9,16 @@ function handleError(status: number, message: string, ctx: Context) {
     }
 }
 
-export { handleError }
+function handleSuccess(ctx: Context, response: postResponse) {
+    const { message } = response
+    const status = response.status || 200
+    const data = response.data || []
+    ctx.response.status = status
+    ctx.body = {
+        status,
+        message,
+        data,
+    }
+}
+
+export { handleError, handleSuccess }

@@ -1,9 +1,10 @@
 import { PostgresConnector, Database } from '../deps.ts'
 
 const connector = new PostgresConnector({
-    host: '...',
-    username: 'user',
-    password: 'password',
+    host: '127.0.0.1',
+    port: 5438,
+    username: 'sammy',
+    password: '123456',
     database: 'blogue',
   
 })

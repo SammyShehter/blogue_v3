@@ -1,38 +1,35 @@
-import {PostSchema} from './posts.model.ts'
-import {CreatePostDto} from './posts.dto.ts'
-
+import { PostSchema } from './posts.model.ts'
+import type { CreatePostDto } from './posts.dto.ts'
 
 class PostDao {
-    
+    private postsStorage: any // PostSchema
+
     constructor() {
-        console.log('Created instance of PostDao');
+        this.postsStorage = PostSchema
+        console.log('Created instance of PostDao')
     }
 
     async getAllPosts() {
-        const posts = await PostSchema.all()
-        
-        // posts.forEach(post => {
-        //     delete post._id
-        // })
-        return posts
+            const posts = await this.postsStorage.all()
+            return posts
     }
 
-    async addPost(postFields: CreatePostDto) {
+    async addPost(
+        postFields: CreatePostDto
+    ): Promise<{ added: boolean; message: string }> {
         try {
-            await PostSchema.create({...postFields})
-            return 'done'
+            await this.postsStorage.create({ ...postFields })
+            return {
+                added: true,
+                message: `${postFields.title} added successfully`,
+            }
         } catch (error) {
-            console.log(error);
+            return {
+                added: false,
+                message: error.message,
+            }
         }
-        // title: string
-        // body: string
-        // image: string
-        // date: Date
-        // lastEdited?: Date
-        // viewed?: number
     }
-    
-
 }
 
 export default new PostDao()

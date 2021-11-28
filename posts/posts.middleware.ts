@@ -5,7 +5,7 @@ import { Context } from '../types/context.type.ts'
 import { CommonMiddleware } from '../common/common.middleware.ts'
 
 class PostMiddleware extends CommonMiddleware {
-    private postBody = ['title', 'text']
+    private postBody = ['title', 'text', 'image']
 
     async inspectParam(ctx: Context, next: any) {
         try {
@@ -37,7 +37,7 @@ class PostMiddleware extends CommonMiddleware {
 
             await next()
         } catch (error) {
-            handleError(error.status, error.message, ctx)
+            handleError(ctx, error.message, error.status)
         }
     }
 }

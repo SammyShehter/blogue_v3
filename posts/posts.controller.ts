@@ -1,39 +1,48 @@
-import {Context} from '../types/context.type.ts'
-import PostDao from './posts.dao.ts'
+import { Context } from '../types/context.type.ts'
+import { handleSuccess, handleError } from '../common/common.functions.ts'
+import PostService from './posts.service.ts'
 class PostController {
     /**
      * ping
      */
     pong(ctx: Context) {
-        ctx.response.body = 'Welcome to Blogue_v3'
+        const message = 'Welcome to Blogue_v3'
+        handleSuccess(ctx, { message })
     }
 
     /**
-     * returns all posts to client
+     * returns all posts to the client
      */
-    async retrieveAllPosts(ctx: Context) {
+    async getAllPosts(ctx: Context) {
         try {
-            ctx.response.body = await PostDao.getAllPosts()
+            const response = await PostService.getAllPosts()
+            return handleSuccess(ctx, response)
         } catch (error) {
-            console.log(error);
+            return handleError(ctx, error.message, error.status)
         }
     }
 
-    getPost(ctx: Context) {
+    /**
+     * returns specific post to the client
+     */
+    async getPost(ctx: Context) {
         try {
-            ctx.response.body = ctx.postId
+            const response = await PostService.getPost(ctx.postId as string)
+            return handleSuccess(ctx, response)
         } catch (error) {
-            console.log(error);
-            
+            return handleError(ctx, error.message, error.status)
         }
     }
 
+    /**
+     * creates a new entry in DB
+     */
     async createPost(ctx: Context) {
         try {
-            await PostDao.addPost(ctx.body)
-            ctx.response.body = 'done'
+            const response = await PostService.addPost(ctx.body)
+            return handleSuccess(ctx, response)
         } catch (error) {
-            console.log(error);
+            return handleError(ctx, error.message, error.status)
         }
     }
 }
