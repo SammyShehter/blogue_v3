@@ -37,9 +37,21 @@ class PostController {
     /**
      * creates a new entry in DB
      */
-    async createPost(ctx: Context) {
+    async addPost(ctx: Context) {
         try {
             const response = await PostService.addPost(ctx.body)
+            return handleSuccess(ctx, response)
+        } catch (error) {
+            return handleError(ctx, error.message, error.status)
+        }
+    }
+
+    /**
+     * patches selected entry in DB
+     */
+     async patchPost(ctx: Context) {
+        try {
+            const response = await PostService.patchPost(ctx.body)
             return handleSuccess(ctx, response)
         } catch (error) {
             return handleError(ctx, error.message, error.status)

@@ -1,5 +1,5 @@
 import { PostSchema } from './posts.model.ts'
-import type { CreatePostDto } from './posts.dto.ts'
+import type { CreatePostDto, PatchPostDto } from './posts.dto.ts'
 
 class PostDao {
     private postsStorage: any // PostSchema
@@ -10,8 +10,11 @@ class PostDao {
     }
 
     async getAllPosts() {
-            const posts = await this.postsStorage.all()
-            return posts
+        return this.postsStorage.take(10).get()
+    }
+
+    async getPost(postId: string) {
+        return this.postsStorage.where('slug', postId).take(1).get()
     }
 
     async addPost(
@@ -21,13 +24,27 @@ class PostDao {
             await this.postsStorage.create({ ...postFields })
             return {
                 added: true,
-                message: `${postFields.title} added successfully`,
+                message: `'${postFields.title}' post added successfully`,
             }
         } catch (error) {
             return {
                 added: false,
                 message: error.message,
             }
+        }
+    }
+
+    async patchPost(
+        postFields: PatchPostDto
+    ): Promise<{ patched: boolean; message: string }> {
+        try {
+            await this.postsStorage
+                .where('title', postFields.title)
+                .update({ ...postFields })
+        } catch (error) {}
+        return {
+            patched: true,
+            message: '',
         }
     }
 }

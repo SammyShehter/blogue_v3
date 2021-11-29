@@ -12,20 +12,37 @@ export class PostRoutes extends CommonRoutes {
         // Special route
         this.router.get('/', PostController.pong)
         //
-
+        //
+        // GET
+        //
         this.router.get('/posts', PostController.getAllPosts)
-
-        this.router.post(
-            '/post',
-            PostMiddleware.parseBody,
-            PostMiddleware.inspectBody,
-            PostController.createPost
-        )
+        //
         this.router.get(
             '/post/:postId',
             PostMiddleware.inspectParam,
             PostController.getPost
         )
+        //
+        //
+        // POST
+        //
+        this.router.post(
+            '/post',
+            PostMiddleware.parseBody,
+            PostMiddleware.inspectBody,
+            PostController.addPost
+        )
+        //
+        //
+        // PATCH
+        //
+        this.router.patch(
+            '/post',
+            PostMiddleware.parseBody,
+            PostMiddleware.inspectBody,
+            PostController.patchPost
+        )
+        //
 
         return this.router
     }

@@ -14,7 +14,7 @@ function handleSuccess(ctx: Context, response: postResponse) {
     const status = response.status || 200
     const data = response.data || []
     ctx.response.status = status
-    ctx.body = {
+    ctx.response.body = {
         status,
         message,
         data,
