@@ -13,8 +13,9 @@ class PostDao {
         return this.postsStorage.take(10).get()
     }
 
-    async getPost(postId: string) {
-        return this.postsStorage.where('slug', postId).take(1).get()
+    async getPost(postSlug: string) {
+        const post = await this.postsStorage.where('slug', postSlug).take(1).get()
+        return post[0]
     }
 
     async addPost(
@@ -39,12 +40,17 @@ class PostDao {
     ): Promise<{ patched: boolean; message: string }> {
         try {
             await this.postsStorage
-                .where('title', postFields.title)
+                .where('slug', postFields.slug)
                 .update({ ...postFields })
-        } catch (error) {}
-        return {
-            patched: true,
-            message: '',
+            return {
+                patched: true,
+                message: 'post was edited successfully',
+            }
+        } catch (error) {
+            return {
+                patched: false,
+                message: error.message,
+            }
         }
     }
 }

@@ -18,8 +18,8 @@ class PostService {
     /**
      * b
      */
-    async getPost(postId: string): Promise<postResponse> {
-        const post = await PostDao.getPost(postId)
+    async getPost(postSlug: string): Promise<postResponse> {
+        const post = await PostDao.getPost(postSlug)
         return {
             message: 'Requested post',
             data: post,
@@ -48,7 +48,7 @@ class PostService {
         const post = await PostDao.patchPost(body)
         if (!post.patched) throw new RequestError(400, post.message)
         return {
-            status: 201,
+            status: 200,
             message: post.message,
         }
     }

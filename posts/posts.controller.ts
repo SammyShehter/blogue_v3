@@ -27,7 +27,7 @@ class PostController {
      */
     async getPost(ctx: Context) {
         try {
-            const response = await PostService.getPost(ctx.postId as string)
+            const response = await PostService.getPost(ctx.postSlug as string)
             return handleSuccess(ctx, response)
         } catch (error) {
             return handleError(ctx, error.message, error.status)
