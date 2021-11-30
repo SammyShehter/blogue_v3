@@ -6,7 +6,6 @@ const connector = new PostgresConnector({
     username: 'sammy',
     password: '123456',
     database: 'blogue',
-  
 })
 
 const db = new Database(connector)

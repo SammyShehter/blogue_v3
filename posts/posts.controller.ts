@@ -49,7 +49,7 @@ class PostController {
     /**
      * patches selected entry in DB
      */
-     async patchPost(ctx: Context) {
+    async patchPost(ctx: Context) {
         try {
             const response = await PostService.patchPost(ctx.body)
             return handleSuccess(ctx, response)
