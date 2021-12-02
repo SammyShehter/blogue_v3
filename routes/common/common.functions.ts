@@ -1,5 +1,5 @@
-import { Context } from '../types/context.type.ts'
-import type { postResponse } from '../types/post.type.ts'
+import { Context } from '../../types/context.type.ts'
+import type { postResponse } from '../../types/post.type.ts'
 
 function handleError(ctx: Context, message: string, status: number = 500) {
     ctx.response.status = status

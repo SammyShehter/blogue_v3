@@ -1,4 +1,4 @@
-import { Router } from '../deps.ts'
+import { Router } from '../../deps.ts'
 import { CommonRoutes } from '../common/common.routes.ts'
 import PostController from './posts.controller.ts'
 import PostMiddleware from './posts.middleware.ts'

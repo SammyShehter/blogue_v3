@@ -1,7 +1,7 @@
 import { Application, Router, oakCors } from './deps.ts'
-import { CommonMiddleware } from './common/common.middleware.ts'
-import { CommonRoutes } from './common/common.routes.ts'
-import { PostRoutes } from './posts/posts.route.ts'
+import { CommonMiddleware } from './routes/common/common.middleware.ts'
+import { CommonRoutes } from './routes/common/common.routes.ts'
+import { PostRoutes } from './routes/posts/posts.route.ts'
 // import {CategorieRoutes} from './categories/categories.route.ts'
 
 const port = 8000

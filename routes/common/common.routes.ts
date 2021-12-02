@@ -1,4 +1,4 @@
-import { Router } from '../deps.ts'
+import { Router } from '../../deps.ts'
 
 export abstract class CommonRoutes {
     router: Router
