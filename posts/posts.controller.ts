@@ -57,6 +57,20 @@ class PostController {
             return handleError(ctx, error.message, error.status)
         }
     }
+
+    /**
+     * deletes selected entry in DB
+     */
+    async deletePost(ctx: Context) {
+        try {
+            const response = await PostService.deletePost(
+                ctx.postSlug as string
+            )
+            return handleSuccess(ctx, response)
+        } catch (error) {
+            return handleError(ctx, error.message, error.status)
+        }
+    }
 }
 
 export default new PostController()

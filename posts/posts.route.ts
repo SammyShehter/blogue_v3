@@ -16,7 +16,7 @@ export class PostRoutes extends CommonRoutes {
         // GET
         //
         this.router.get('/posts', PostController.getAllPosts)
-        //
+
         this.router.get(
             '/post/:postSlug',
             PostMiddleware.inspectParam,
@@ -44,6 +44,16 @@ export class PostRoutes extends CommonRoutes {
             PostController.patchPost
         )
         //
+        //
+        // DELETE
+        //
+        this.router.delete(
+            '/post',
+            PostMiddleware.parseBody,
+            PostMiddleware.inspectBody,
+            PostMiddleware.postExists,
+            PostController.deletePost
+        )
 
         return this.router
     }

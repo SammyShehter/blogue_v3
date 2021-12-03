@@ -7,8 +7,6 @@ export interface CreatePostDto {
     viewed?: number
 }
 
-
-   
 export interface PatchPostDto {
     slug: string
     title?: string
@@ -16,3 +14,4 @@ export interface PatchPostDto {
     image?: string
     viewed?: number
 }
+

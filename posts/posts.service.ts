@@ -10,8 +10,9 @@ class PostService {
      */
     async getAllPosts(): Promise<postResponse> {
         const posts = await PostDao.getAllPosts()
+        if(!posts.length) throw new RequestError(404, 'No posts found')
         return {
-            message: 'Last 20 posts',
+            message: 'Last 10 posts',
             data: posts,
         }
     }
@@ -21,6 +22,7 @@ class PostService {
      */
     async getPost(postSlug: string): Promise<postResponse> {
         const post = await PostDao.getPost(postSlug)
+        if(!post) throw new RequestError(404, 'Post not found')
         post.viewed += 1
         const addWatch = await PostDao.patchPost(post) // +1 watch
         if (!addWatch.patched) throw new RequestError(400, addWatch.message)
@@ -51,6 +53,18 @@ class PostService {
     async patchPost(body: PatchPostDto): Promise<postResponse> {
         const post = await PostDao.patchPost(body)
         if (!post.patched) throw new RequestError(400, post.message)
+        return {
+            status: 200,
+            message: post.message,
+        }
+    }
+
+    /**
+     * e
+     */
+    async deletePost(postSlug: string) {
+        const post = await PostDao.deletePost(postSlug)
+        if (!post.deleted) throw new RequestError(400, post.message)
         return {
             status: 200,
             message: post.message,

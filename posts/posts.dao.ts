@@ -14,7 +14,10 @@ class PostDao {
     }
 
     async getPost(postSlug: string) {
-        const post = await this.postsStorage.where('slug', postSlug).take(1).get()
+        const post = await this.postsStorage
+            .where('slug', postSlug)
+            .take(1)
+            .get()
         return post[0]
     }
 
@@ -49,6 +52,21 @@ class PostDao {
         } catch (error) {
             return {
                 patched: false,
+                message: error.message,
+            }
+        }
+    }
+
+    async deletePost(postSlug: string) {
+        try {
+            await this.postsStorage.where('slug', postSlug).delete()
+            return {
+                deleted: true,
+                message: 'post was deleted successfully',
+            }
+        } catch (error) {
+            return {
+                deleted: false,
                 message: error.message,
             }
         }

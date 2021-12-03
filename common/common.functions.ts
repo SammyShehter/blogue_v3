@@ -1,4 +1,4 @@
-import { Context } from '../types/context.type.ts'
+import { Context, Response } from '../types/context.type.ts'
 import type { postResponse } from '../types/post.type.ts'
 
 function handleError(ctx: Context, message: string, status: number = 500) {
@@ -12,13 +12,14 @@ function handleError(ctx: Context, message: string, status: number = 500) {
 function handleSuccess(ctx: Context, response: postResponse) {
     const { message } = response
     const status = response.status || 200
-    const data = response.data || []
-    ctx.response.status = status
-    ctx.response.body = {
-        status,
+    const res: Response = {
         message,
-        data,
+        status,
     }
+    const data = response.data
+    if (data) res.data = data
+    ctx.response.status = status
+    ctx.response.body = res
 }
 
 export { handleError, handleSuccess }
