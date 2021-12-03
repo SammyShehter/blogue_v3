@@ -1,8 +1,8 @@
 import type { CreatePostDto, PatchPostDto } from './posts.dto.ts'
 import PostDao from './posts.dao.ts'
 import { RequestError } from '../common/common.error.ts'
-import { createSlug } from '../utils/helpers.ts'
-import type { postResponse } from '../types/post.type.ts'
+import { createSlug } from '../../utils/helpers.ts'
+import type { postResponse } from '../../types/post.type.ts'
 
 class PostService {
     /**

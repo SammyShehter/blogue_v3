@@ -1,5 +1,5 @@
-import { Model, DataTypes } from '../deps.ts'
-import { db } from '../services/postgres.service.ts'
+import { Model, DataTypes } from '../../deps.ts'
+import { db } from '../../services/postgres.service.ts'
 
 class PostSchema extends Model {
     static table = 'posts'

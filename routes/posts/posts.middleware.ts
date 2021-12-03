@@ -1,10 +1,10 @@
-import { getQuery } from '../deps.ts'
+import { getQuery } from '../../deps.ts'
 import { RequestError } from '../common/common.error.ts'
 import { handleError } from '../common/common.functions.ts'
-import { Context } from '../types/context.type.ts'
+import { Context } from '../../types/context.type.ts'
 import { CommonMiddleware } from '../common/common.middleware.ts'
 import PostDao from './posts.dao.ts'
-import type { post } from '../types/post.type.ts'
+import type { post } from '../../types/post.type.ts'
 
 class PostMiddleware extends CommonMiddleware {
     private postBody = ['title', 'text', 'image', 'slug']

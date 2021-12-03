@@ -1,4 +1,4 @@
-import {Context} from '../types/context.type.ts'
+import {Context} from '../../types/context.type.ts'
 
 export abstract class CommonMiddleware {
     static loggerMiddleware = async (ctx: Context, next: any) => {
