@@ -2,12 +2,15 @@ import { getQuery } from '../../deps.ts'
 import { RequestError } from '../common/common.error.ts'
 import { handleError } from '../common/common.functions.ts'
 import { Context } from '../../types/context.type.ts'
-import { CommonMiddleware } from '../common/common.middleware.ts'
 import PostDao from './posts.dao.ts'
-import type { post } from '../../types/post.type.ts'
 
-class PostMiddleware extends CommonMiddleware {
-    private postBody = ['title', 'text', 'image', 'slug']
+class PostMiddleware {
+    private postBody: Array<string>
+
+    constructor() {
+        this.postBody = ['title', 'text', 'image', 'slug']
+        console.log('Created instance of PostMiddleware')
+    }
 
     async inspectParam(ctx: Context, next: any) {
         try {

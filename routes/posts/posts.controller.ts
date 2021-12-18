@@ -2,6 +2,10 @@ import { Context } from '../../types/context.type.ts'
 import { handleSuccess, handleError } from '../common/common.functions.ts'
 import PostService from './posts.service.ts'
 class PostController {
+    constructor() {
+        console.log('Created instance of PostController')
+    }
+
     /**
      * ping
      */

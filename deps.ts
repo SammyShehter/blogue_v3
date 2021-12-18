@@ -11,3 +11,4 @@ export {
     PostgresConnector,
 } from 'https://deno.land/x/denodb@v1.0.39/mod.ts'
 export { getQuery } from 'https://deno.land/x/oak@v9.0.1/helpers.ts'
+export { config as env } from 'https://deno.land/x/dotenv@v3.1.0/mod.ts'

@@ -1,23 +1,42 @@
-import {Context} from '../../types/context.type.ts'
+import { Context } from '../../types/context.type.ts'
+import { handleError } from './common.functions.ts'
+import { RequestError } from './common.error.ts'
+import { call } from '../../utils/http.ts'
+import { USERS_SERVICE, API_KEY } from '../../utils/globals.ts'
 
-export abstract class CommonMiddleware {
-    static loggerMiddleware = async (ctx: Context, next: any) => {
-        await next()
-        const reqTime = ctx.response.headers.get('X-Response-Time')
-        // const reqId = ctx.response.headers.get('X-Response-Id')
-        const status = ctx.response.status
-        console.log(
-            // `${reqId} ${ctx.request.method} ${ctx.request.url} - ${reqTime} status: ${status}`
-            `${ctx.request.method} ${ctx.request.url} - ${reqTime} status: ${status}`
-        )
+class CommonMiddleware {
+    private userService: string
+    private apiKey: string
+
+    constructor(usersUrl: string, apiKey: string) {
+        this.userService = usersUrl
+        this.apiKey = apiKey
+        console.log('Created instance of CommonMiddleware')
     }
 
-    static timingMiddleware = async (ctx: Context, next: any) => {
-        const start = Date.now()
-        await next()
-        const ms = Date.now() - start
-        ctx.response.headers.set('X-Response-Time', `${ms}ms`)
-    }
+    auth = async (ctx: Context, next: any) => {
+        try {
+            const rawToken = ctx.request.headers.get('Authorization')
+            if (!rawToken) throw new RequestError(401, `Not authorized`)
+            const token = rawToken.split(' ')[1]
+            const body = { token }
+            const headers = { inner_call: this.apiKey }
 
-    
+            const { user } = await call(
+                `${this.userService}/validation`,
+                'POST',
+                body,
+                headers
+            )
+
+            if (!user || user.role !== 'ADMIN')
+                throw new RequestError(401, `Not authorized`)
+
+            await next()
+        } catch (error) {
+            handleError(ctx, error.message, 400)
+        }
+    }
 }
+
+export default new CommonMiddleware(USERS_SERVICE as string, API_KEY as string)

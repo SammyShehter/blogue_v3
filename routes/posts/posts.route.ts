@@ -1,11 +1,13 @@
 import { Router } from '../../deps.ts'
 import { CommonRoutes } from '../common/common.routes.ts'
+import CommonMiddleware from '../common/common.middleware.ts'
 import PostController from './posts.controller.ts'
 import PostMiddleware from './posts.middleware.ts'
 
 export class PostRoutes extends CommonRoutes {
     constructor(router: Router) {
         super(router, 'Post Routes')
+        console.log('Created instace of PostRoutes')
     }
 
     configureRoutes() {
@@ -28,6 +30,7 @@ export class PostRoutes extends CommonRoutes {
         //
         this.router.post(
             '/post',
+            CommonMiddleware.auth,
             PostMiddleware.parseBody,
             PostMiddleware.inspectBody,
             PostController.addPost

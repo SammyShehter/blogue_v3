@@ -5,12 +5,15 @@ import { createSlug } from '../../utils/helpers.ts'
 import type { postResponse } from '../../types/post.type.ts'
 
 class PostService {
+    constructor() {
+        console.log('Created instace of PostService')
+    }
     /**
      * a
      */
     async getAllPosts(): Promise<postResponse> {
         const posts = await PostDao.getAllPosts()
-        if(!posts.length) throw new RequestError(404, 'No posts found')
+        if (!posts.length) throw new RequestError(404, 'No posts found')
         return {
             message: 'Last 10 posts',
             data: posts,
@@ -22,7 +25,7 @@ class PostService {
      */
     async getPost(postSlug: string): Promise<postResponse> {
         const post = await PostDao.getPost(postSlug)
-        if(!post) throw new RequestError(404, 'Post not found')
+        if (!post) throw new RequestError(404, 'Post not found')
         post.viewed += 1
         const addWatch = await PostDao.patchPost(post) // +1 watch
         if (!addWatch.patched) throw new RequestError(400, addWatch.message)

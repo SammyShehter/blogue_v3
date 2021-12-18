@@ -1,17 +1,20 @@
 import { Application, Router, oakCors } from './deps.ts'
-import { CommonMiddleware } from './routes/common/common.middleware.ts'
+import { PORT } from './utils/globals.ts'
+import { loggerMiddleware, timingMiddleware } from './utils/helpers.ts'
 import { CommonRoutes } from './routes/common/common.routes.ts'
 import { PostRoutes } from './routes/posts/posts.route.ts'
+import { log } from './utils/logger.ts'
 // import {CategorieRoutes} from './categories/categories.route.ts'
 
-const port = 8000
+const port: number = Number(PORT)
 const app = new Application()
 const router = new Router()
 const routes: Array<CommonRoutes> = []
 
+// middlewares
 app.use(oakCors())
-app.use(CommonMiddleware.loggerMiddleware)
-app.use(CommonMiddleware.timingMiddleware)
+app.use(loggerMiddleware)
+app.use(timingMiddleware)
 app.use(router.routes())
 app.use(router.allowedMethods())
 
@@ -23,6 +26,6 @@ routes.forEach((route: CommonRoutes) => {
     console.log(`Route configured for ${route.getName()}`)
 })
 
-console.log(`Server is listening on port ${port}`)
+log.serviceStarted(port)
 
 await app.listen({ port })

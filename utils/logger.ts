@@ -1,78 +1,62 @@
-// import * as log from 'https://deno.land/std@0.113.0/log/mod.ts'
+import { Context } from '../types/context.type.ts'
+export const log = {
+    serviceStarted: (port: number) => {
+        console.log(`
+██████╗ ██╗      ██████╗  ██████╗ ██╗   ██╗███████╗
+██╔══██╗██║     ██╔═══██╗██╔════╝ ██║   ██║██╔════╝
+██████╔╝██║     ██║   ██║██║  ███╗██║   ██║█████╗  
+██╔══██╗██║     ██║   ██║██║   ██║██║   ██║██╔══╝  
+██████╔╝███████╗╚██████╔╝╚██████╔╝╚██████╔╝███████╗
+╚═════╝ ╚══════╝ ╚═════╝  ╚═════╝  ╚═════╝ ╚══════╝
+        `)
 
+        console.log(`Server is listening on port ${port}`)
+    },
 
-// await log.setup({
-//   handlers: {
-//     console: new log.handlers.ConsoleHandler("DEBUG", {
-//         formatter: "{datetime} {levelName} {msg}"
-//     }),
-//   },
+    getHeaders: (iterator: any): string => {
+        const headers: Array<string> = []
+        const headersIterable: Array<[string, boolean]> = [
+            ['postman-token', true],
+            ['accept', true],
+            ['accept-encoding', true],
+            ['connection', true],
+            ['host', true],
+        ]
+        const allowedKeys = new Map(headersIterable)
+        for (let pair of iterator.entries()) {
+            const key: string = pair[0]
+            const value: string = pair[1]
+            allowedKeys.has(key) ? null : headers.push(`\n\t${key}: ${value}`)
+        }
+        return headers.join('')
+    },
 
-//   loggers: {
-//     default: {
-//       level: "DEBUG",
-//       handlers: ["console"],
-//     }
-//   },
-// });
+    requestError: function(ctx: Context, message: string, status: number) {
+        console.error(`
+############## Incoming Request Error ##############
+    corelation id: ${ctx.correlationId}
 
-// const print = log.getLogger()
+    ip: ${ctx.request.ip}
+    method: ${ctx.request.method}
+    path: ${ctx.request.url}
+    message: ${message}
+    status: ${status}
 
-// export { print }
+    
+    headers: ${
+        this.getHeaders(ctx.request.headers)
+    }
+####################################################
+        `)
+    },
 
-
-
-
-// import {
-//     setup as loggerSetup,
-//     getLogger,
-// } from 'https://deno.land/std@0.113.0/log/mod.ts'
-// import {
-//     ConsoleHandler,
-//     FileHandler,
-// } from 'https://deno.land/std@0.113.0/log/handlers.ts'
-// import { ensureDir } from 'https://deno.land/std@0.113.0/fs/ensure_dir.ts'
-
-// // const logDir = Deno.env.get('LOG_DIR') || './logs'
-// const logDir = './logs'
-
-// await ensureDir(logDir)
-
-// const consoleLoggerHandler = new ConsoleHandler('DEBUG', {
-//     formatter: "{datetime} {levelName} {msg}"
-// })
-
-// const applicationLoggerHandler = new FileHandler('DEBUG', {
-//     filename: logDir + '/application.log',
-//     formatter: rec => JSON.stringify({region: rec.loggerName, ts: rec.datetime, level: rec.levelName, data: rec.msg})})
-
-
-// const errorLoggerHandler = new FileHandler('WARNING', {
-//     filename: logDir + '/errors.log',
-//     formatter: rec => JSON.stringify({region: rec.loggerName, ts: rec.datetime, level: rec.levelName, data: rec.msg})})
-
-// await loggerSetup({
-// handlers: {
-//     console: consoleLoggerHandler,
-//     app: applicationLoggerHandler,
-//     errors: errorLoggerHandler,
-// },
-// loggers: {
-//         default: {
-//             level: 'DEBUG',
-//             handlers: ['console', 'app'],
-//         },
-//         app: {
-//             level: 'INFO',
-//             handlers: ['app'],
-//         },
-//         error: {
-//             level: 'WARNING',
-//             handlers: ['errors'],
-//         },
-//     },
-// })
-
-// export const print = getLogger()
-// export const write = getLogger('app')
-// export const notice = getLogger('error')
+    callError: (service: string, message: string, status: number) => {
+        console.error(`
+################# Http Call Error ##################
+    service: ${service}
+    message: ${message}
+    status: ${status}
+####################################################
+        `)
+    },
+}
