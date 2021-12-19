@@ -34,7 +34,7 @@ class CommonMiddleware {
 
             await next()
         } catch (error) {
-            handleError(ctx, error.message, 400)
+            handleError(ctx, error.message, 401)
         }
     }
 }

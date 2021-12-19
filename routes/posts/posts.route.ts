@@ -41,6 +41,7 @@ export class PostRoutes extends CommonRoutes {
         //
         this.router.patch(
             '/post',
+            CommonMiddleware.auth,
             PostMiddleware.parseBody,
             PostMiddleware.inspectBody,
             PostMiddleware.postExists,
@@ -52,6 +53,7 @@ export class PostRoutes extends CommonRoutes {
         //
         this.router.delete(
             '/post',
+            CommonMiddleware.auth,
             PostMiddleware.parseBody,
             PostMiddleware.inspectBody,
             PostMiddleware.postExists,

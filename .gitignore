@@ -1,3 +1,4 @@
 data
 postgres-data
 database.env
+.env
