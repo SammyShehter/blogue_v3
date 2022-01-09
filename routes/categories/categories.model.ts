@@ -1,8 +1,8 @@
 import { Model, DataTypes } from '../../deps.ts'
 import { db } from '../../services/postgres.service.ts'
 
-class PostSchema extends Model {
-    static table = 'posts'
+class CategorieSchema extends Model {
+    static table = 'categories'
 
     static fields = {
         id: { primaryKey: true, autoIncrement: true },
@@ -35,6 +35,6 @@ class PostSchema extends Model {
     static timestamps = true
 }
 
-db.link([PostSchema])
+db.link([CategorieSchema])
 // await db.sync({ drop: true })
-export { PostSchema }
+export { CategorieSchema }
