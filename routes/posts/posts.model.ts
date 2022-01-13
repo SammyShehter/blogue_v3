@@ -36,5 +36,5 @@ class PostSchema extends Model {
 }
 
 db.link([PostSchema])
-// await db.sync({ drop: true })
+await db.sync({ drop: true })
 export { PostSchema }
