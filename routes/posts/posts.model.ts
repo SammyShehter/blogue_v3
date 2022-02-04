@@ -15,11 +15,18 @@ class PostSchema extends Model {
         slug: {
             type: DataTypes.STRING,
             unique: true,
-            length: 40,
+            length: 32,
+            allowNull: false,
+        },
+        preview: {
+            type: DataTypes.STRING,
+            unique: true,
+            length: 250,
             allowNull: false,
         },
         text: {
             type: DataTypes.STRING,
+            length:8600,
             allowNull: false,
         },
         viewed: {
@@ -36,5 +43,5 @@ class PostSchema extends Model {
 }
 
 db.link([PostSchema])
-await db.sync({ drop: true })
+// await db.sync({ drop: true })
 export { PostSchema }

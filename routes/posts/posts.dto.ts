@@ -1,6 +1,7 @@
 
 export interface CreatePostDto {
     title: string
+    preview: string
     text: string
     slug: string
     image?: string
@@ -9,6 +10,7 @@ export interface CreatePostDto {
 
 export interface PatchPostDto {
     slug: string
+    preview?: string
     title?: string
     text?: string
     image?: string
