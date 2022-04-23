@@ -22,14 +22,14 @@ class CommonMiddleware {
             const body = { token }
             const headers = { inner_call: this.apiKey }
 
-            const { user } = await call(
-                `${this.userService}/validation`,
+            const response = await call(
+                `${this.userService}/innercall`,
                 'POST',
                 body,
                 headers
             )
-
-            if (!user || user.role !== 'ADMIN')
+            
+            if (!response.data || response.data.role !== 'ADMIN')
                 throw new RequestError(401, `Not authorized`)
 
             await next()

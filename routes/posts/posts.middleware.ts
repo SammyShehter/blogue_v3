@@ -8,7 +8,7 @@ class PostMiddleware {
     private postBody: Array<string>
 
     constructor() {
-        this.postBody = ['title', 'text', 'image', 'slug']
+        this.postBody = ['title', 'text', 'image', 'slug', 'preview']
         console.log('Created instance of PostMiddleware')
     }
 
