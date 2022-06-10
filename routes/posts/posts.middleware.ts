@@ -57,6 +57,20 @@ class PostMiddleware {
             handleError(ctx, error.message, error.status)
         }
     }
+
+    cut = async (ctx: Context, next: any) => {
+        try {
+            const queryParams = getQuery(ctx, { mergeParams: true })
+
+            if(Object.keys(queryParams).length) {
+                throw new RequestError(400, `Request had params that are not allowed`)
+            }
+        
+            await next()
+        } catch (error) {
+            handleError(ctx, error.message, error.status)
+        }
+    }
 }
 
 export default new PostMiddleware()

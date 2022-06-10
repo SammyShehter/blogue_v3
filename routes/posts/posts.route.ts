@@ -12,11 +12,11 @@ export class PostRoutes extends CommonRoutes {
 
     configureRoutes() {
         // Special route
-        this.router.get('/', PostController.pong)
-        //
-        //
-        // GET
-        //
+        this.router.get('/',
+        PostMiddleware.cut,
+        PostController.pong)
+
+        //  GET        
         this.router.get('/posts', PostController.getAllPosts)
 
         this.router.get(
@@ -24,10 +24,8 @@ export class PostRoutes extends CommonRoutes {
             PostMiddleware.inspectParam,
             PostController.getPost
         )
-        //
-        //
+        
         // POST
-        //
         this.router.post(
             '/post',
             CommonMiddleware.auth,
@@ -35,10 +33,8 @@ export class PostRoutes extends CommonRoutes {
             PostMiddleware.inspectBody,
             PostController.addPost
         )
-        //
-        //
+
         // PATCH
-        //
         this.router.patch(
             '/post',
             CommonMiddleware.auth,
@@ -47,10 +43,8 @@ export class PostRoutes extends CommonRoutes {
             PostMiddleware.postExists,
             PostController.patchPost
         )
-        //
-        //
-        // DELETE
-        //
+        
+        // DELETE        
         this.router.delete(
             '/post',
             CommonMiddleware.auth,
